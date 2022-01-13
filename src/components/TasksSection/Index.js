@@ -64,14 +64,7 @@ function TasksSection() {
             </div>
           </div>
         </div>
-        <div className="container">
-          <div>
-            <div className="mainBg">
-                <AddTasks/>
-              <div className="bgLines"></div>
-            </div>
-          </div>
-        </div>
+      <AddTasks/>
       </div>
     </StyledTaskSection>
   );

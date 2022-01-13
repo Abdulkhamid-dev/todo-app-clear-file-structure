@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
+import { StyledAddTaskForm } from "./Index.styles";
 import { AiOutlinePlus } from "react-icons/ai";
 import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils";
-import './index.css'
+// import './index.css'
 
 function AddTask() {
     const inputRef = useRef();
@@ -10,17 +11,17 @@ function AddTask() {
       inputRef.current.focus();
     };
     return (
-        <div className='addTask' onClick={toggleInput}>
+        <StyledAddTaskForm className='addTask' onClick={toggleInput}>
         <div>
             <button className='plus_btn'>
             <AiOutlinePlus color={`${COLORS.greydark}`} size={`${pxToRem(16)}`}/>
             </button>
             <form action="">
-            <input type="text" ref={inputRef}  placeholder='Add Task'/>
+            <input type="text" ref={inputRef}  placeholder='Add Task' required/>
             <button>Create</button>
             </form>
         </div>
-    </div>
+    </StyledAddTaskForm>
     )
 }
 
