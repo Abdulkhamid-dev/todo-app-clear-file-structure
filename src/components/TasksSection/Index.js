@@ -1,8 +1,11 @@
 import React from "react";
 import AddTasks from "./AddTask";
+import BgLines from "./BgLines";
+import Tasks from "./TasksList";
 import { StyledTaskSection } from "./Index.styles";
 import { BsThreeDots } from "react-icons/bs";
 import { BiSort } from "react-icons/bi";
+import { VscMenu } from "react-icons/vsc";
 import { RiLightbulbLine } from "react-icons/ri";
 import { AiOutlinePlus } from "react-icons/ai";
 import { COLORS } from "../../constants";
@@ -17,6 +20,15 @@ function TasksSection() {
             <div className="headline">
               <div>
                 <div>
+                  <button className="sidebarNavBtn">
+                    <i>
+                      <VscMenu
+                        color={`${COLORS.darkGrey}`}
+                        size={`${pxToRem(20)}`}
+                      />
+                    </i>
+                  </button>
+
                   <h2>My Day</h2>
                   <div>
                     <BsThreeDots
@@ -25,11 +37,6 @@ function TasksSection() {
                     />
                   </div>
                 </div>
-              </div>
-              <div className="taskbarSubline">
-                <span>
-                  <span>wed, 12 january</span>
-                </span>
               </div>
             </div>
             <div className="sortBy">
@@ -64,7 +71,9 @@ function TasksSection() {
             </div>
           </div>
         </div>
-      <AddTasks/>
+        <AddTasks />
+        <Tasks />
+        <BgLines />
       </div>
     </StyledTaskSection>
   );

@@ -112,7 +112,9 @@ function Sidebar() {
                   size={`${pxToRem(14)}`}
                 />
               </button>
+              <form>
               <input type="text" ref={inputRef} placeholder="Create list" />
+              </form>
             </div>
             <div className="addGroup">
               <button>

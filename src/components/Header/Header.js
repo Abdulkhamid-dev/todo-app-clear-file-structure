@@ -47,7 +47,7 @@ function Header() {
           </div>
           <div>
             <li>
-              <div className="navIcon">
+              <div className="navIcon notification">
                 <a href="#!"><AiOutlineNotification color="#fff" size={20}/>
                 <span className="notificationCount">
                   2

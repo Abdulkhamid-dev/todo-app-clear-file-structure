@@ -3,6 +3,12 @@ import { COLORS, STYLING_CONFIGS } from "../../constants";
 import { pxToRem } from "../../utils";
 
 export const StyledSidebar = styled.aside`
+@media only screen and (max-width: 920px) {
+  position: absolute;
+  flex-column: column;
+  height: 100%;
+  left: -290px;
+ }
   border-right: 1px solid #eaeaea;
   width: 290px;
   background-color: ${COLORS.lightGrey};
@@ -10,7 +16,7 @@ export const StyledSidebar = styled.aside`
   display: flex;
   flex-direction: column;
   background: #f4f4f4;
-  height: calc(100vh - 48px);
+  height: 100%;
   transition: 0.4s ease-in-out;
 
   .sidebar {
@@ -60,7 +66,7 @@ export const StyledSidebar = styled.aside`
         padding-top: 8px;
         padding: 0;
         .activeItem {
-            background-color: ${COLORS.activeGrey}
+          background-color: ${COLORS.activeGrey};
         }
         li {
           min-width: 50px;
@@ -150,7 +156,7 @@ export const StyledSidebar = styled.aside`
     min-height: ${pxToRem(36)};
     transition: 0.2s ease-in-out;
     &:hover {
-        background-color: ${COLORS.white};
+      background-color: ${COLORS.white};
     }
     button {
       cursor: pointer;
@@ -172,26 +178,28 @@ export const StyledSidebar = styled.aside`
 
   .sidebarFooter {
     border-top: 1px solid ${COLORS.asideBorder};
-    div{
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
+    div {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      box-sizing: border-box;
+      width: 100%;
+      a {
+        padding: 12px 0;
+        height: 48px;
+        flex: 1 1 0px;
+        display: inline-block;
         box-sizing: border-box;
         width: 100%;
-        a{
-            padding: 12px 0;
-            height: 48px;
-            flex: 1 1 0px;
-            display: inline-block;
-            box-sizing: border-box;
-            width: 100%;
-            cursor: pointer;
-            text-align: center;
-            transition: 0.2s ease-in-out;
-            &:hover {
-                background-color: ${COLORS.activeGrey};
-            }
+        cursor: pointer;
+        text-align: center;
+        transition: 0.2s ease-in-out;
+        &:hover {
+          background-color: ${COLORS.activeGrey};
         }
+      }
     }
   }
 `;
+
+

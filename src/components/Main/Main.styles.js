@@ -7,4 +7,5 @@ export const StyledMain = styled.section`
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
+  height: calc(100vh - 48px);
 `;

@@ -77,6 +77,9 @@ export const StyledHeader = styled.header`
       justify-content: center;
     }
   }
+  .notification {
+    position: relative;
+  }
   .notificationCount {
     background-color: ${COLORS.darkBlue};
     color: ${COLORS.white};
@@ -89,6 +92,6 @@ export const StyledHeader = styled.header`
     border-radius: 50%;
     position: absolute;
     top: ${pxToRem(3)};
-    right: ${pxToRem(53)};
+    right: ${pxToRem(5)};
   }
 `;
