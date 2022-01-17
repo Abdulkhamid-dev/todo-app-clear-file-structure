@@ -32,13 +32,6 @@ function AddTask() {
     inputRef.current.focus();
   };
 
-  const hanleCreateTodo = async () => {
-    try {
-      const { data } = await axios.post("/todos", todo);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleSubmit = async (e) => {
       e.preventDefault()

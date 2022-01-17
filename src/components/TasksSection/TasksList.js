@@ -10,12 +10,15 @@ const Tasks = () => {
 
   const getTodos = async () => {
     try {
+      setLoader(true)
       const data = await axios.get("/todos");
       const {data: todos} = data
       console.log(data);
       setTodos(todos.data);
+      setLoader(false)
     } catch (error) {
       console.log(error);
+      setLoader(false)
     }
   };
 
@@ -23,13 +26,18 @@ const Tasks = () => {
     getTodos();
   }, []);
 
-  return (
-    <StyledTasksList>
-      {todos.map((item) => {
-        return <TaskItem key={item.id} title={item.attributes.title} />;
-      })}
-    </StyledTasksList>
-  );
+   if (!loader) {
+    return (
+      <StyledTasksList>
+        {todos.map((item) => {
+          return <TaskItem key={item.id} title={item.attributes.title} />;
+        })}
+      </StyledTasksList>
+    )  
+   } else {
+     return <h2>Loading...</h2>
+   }
+   
 };
 
 export default Tasks;

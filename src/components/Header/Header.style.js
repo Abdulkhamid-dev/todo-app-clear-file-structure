@@ -63,6 +63,7 @@ export const StyledHeader = styled.header`
     background-color: transparent;
   }
   }
+  
 
   @media only screen and (max-width: 760px) {
     .searchBLock {

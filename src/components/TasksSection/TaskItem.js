@@ -31,7 +31,7 @@ function TaskItem(props) {
 
            < BiStar  color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`}/>
 
-           < RiDeleteBinLine onClick={() =>  handleDeleteTodo(5)}  color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`}/>
+           < RiDeleteBinLine onClick={() =>  handleDeleteTodo(12)}  color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`}/>
 
            </div>
         </StyledTask>

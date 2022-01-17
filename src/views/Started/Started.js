@@ -17,9 +17,9 @@ function Started() {
                     <img className='people_img' src={peopleStarted} alt="People" />
                 </div>
                 <div className="main_content">
-                    {/* <Link to="/sign-in"> */}
+                    <Link to="/sign-in">
                     <button>Get started</button>
-                    {/* </Link> */}
+                    </Link>
                     <p>
                         <a href='#!'>Learn more</a>
                     </p>

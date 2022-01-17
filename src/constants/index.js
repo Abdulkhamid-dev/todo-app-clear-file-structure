@@ -16,7 +16,10 @@ export const COLORS = {
     greydark: '#767678',
     greyBLack: '#34373d',
     addIcon: '#465efc',
-    fillIcons: '#605e5c'
+    fillIcons: '#605e5c',
+    signingBg: '#f0e5e1',
+    black: 'black',
+    blue: '#4461e2'
 }
 
 export  const STYLING_CONFIGS = {
