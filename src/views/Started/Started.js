@@ -25,7 +25,7 @@ function Started() {
                     </p>
                 </div>
                 <div className="footer_content">
-                    <p>
+                    <div>
                         <span><h3>Download</h3></span>
                         <span className="operation_icons">
                             <a href="#!">
@@ -38,7 +38,7 @@ function Started() {
                                 <GrApple color={`${COLORS.fillIcons}`} size={`${pxToRem(20)}`}/>
                             </a>
                         </span>
-                    </p>
+                    </div>
 
                 </div>
             </div>

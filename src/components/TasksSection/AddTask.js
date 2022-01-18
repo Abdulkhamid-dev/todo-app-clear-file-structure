@@ -17,6 +17,7 @@ function AddTask() {
     category: "",
     collection_id: null,
   });
+  const [open, setOpen] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -27,14 +28,12 @@ function AddTask() {
     }
   };
 
-  const inputRef = useRef();
-  const toggleInput = () => {
-    inputRef.current.focus();
+  const toggleModal = () => {
+    setOpen(!open);
   };
 
-
   const handleSubmit = async (e) => {
-      e.preventDefault()
+    e.preventDefault();
     try {
       const { data } = await axios.post("/todos", { data: todo });
       console.log(data);
@@ -46,51 +45,62 @@ function AddTask() {
   const { title, content, due_date, is_important, is_completed, category } =
     todo;
   return (
-    <StyledAddTaskForm className="addTask" onClick={toggleInput}>
-      <div>
+    <StyledAddTaskForm className="addTask">
+      <div className="main">
         <button className="plus_btn">
           <AiOutlinePlus color={`${COLORS.greydark}`} size={`${pxToRem(16)}`} />
         </button>
-        <form>
+        <form className="fake_form"  onClick={toggleModal}>
           <p>
-            <label htmlFor="title">Title</label>
             <input
               type="text"
               id="title"
+              name="title"
+              placeholder="Add Task"
+              disabled
+            />
+          </p>
+          <button type="submit" onClick={handleSubmit}>
+            Create
+          </button>
+        </form>
+        <div
+          id="myModal"
+          className="modal"
+          style={{ display: open ? "flex" : "none" }}
+        >
+          <div className="modal-content">
+           <div className="modal_header">
+            <h3>Add task</h3>
+           <span className="close" onClick={toggleModal}>
+              &times;
+            </span>
+           </div>
+           <form onSubmit={handleSubmit}>
+           <div className="modal_body">
+          <div>
+            <label htmlFor="name">Task name</label>
+            <input
+              type="text"
+              id="name"
               onChange={handleInputChange}
               value={title}
               name="title"
-              placeholder="Add Task"
-              required
+              placeholder="Task name"
             />
-          </p>
-          <p>
-            <label htmlFor="content">Content</label>
+          </div>
+          <div>
+          <label htmlFor="content">Task content</label>
             <input
               type="text"
               id="content"
               onChange={handleInputChange}
               value={content}
               name="content"
-              placeholder="Add Content"
-              required
+              placeholder="Task content"
             />
-          </p>
-          <p>
-            <label htmlFor="category">Category</label>
-            <select
-              name="category"
-              onChange={handleInputChange}
-              id="category"
-              value={category}
-            >
-              <option value="sport">Sport</option>
-              <option value="education">Education</option>
-              <option value="todo">Todo</option>
-              <option value="entertainment">Entertainment</option>
-            </select>
-          </p>
-          <p>
+          </div>
+          <div>
             <label htmlFor="due_date">Date</label>
             <input
               type="date"
@@ -98,10 +108,10 @@ function AddTask() {
               onChange={handleInputChange}
               value={due_date}
               name="due_date"
-              required
             />
-          </p>
-          <p>
+          </div>
+         <div className="checkbox_block">
+         <div>
             <label htmlFor="is_important">Important</label>
             <input
               type="checkbox"
@@ -110,9 +120,9 @@ function AddTask() {
               value={is_important}
               name="is_important"
             />
-          </p>
-          <p>
-            <label htmlFor="is_completed">Completed</label>
+          </div>
+          <div>
+            <label htmlFor="is_completed">Complited</label>
             <input
               type="checkbox"
               id="is_completed"
@@ -120,9 +130,26 @@ function AddTask() {
               value={is_completed}
               name="is_completed"
             />
-          </p>
-          <button type="submit" onClick={handleSubmit}>Create</button>
+          </div>
+         </div>
+          <div className="select">
+          <label htmlFor="category">Category</label>
+            <select name="category" id="category" value={category} onChange={handleInputChange}>
+              <option  disabled>Select</option>
+              <option value="education">Education</option>
+              <option value="sport">Sport</option>
+              <option value="todo">Todo</option>
+            </select>
+          </div>
+          <div className="module_footer">
+          <button type="submit">
+            Create
+          </button>
+          </div>
+           </div>
         </form>
+          </div>
+        </div>
       </div>
     </StyledAddTaskForm>
   );

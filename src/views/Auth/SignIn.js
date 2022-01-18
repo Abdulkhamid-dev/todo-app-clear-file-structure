@@ -25,11 +25,13 @@ function SignIn() {
     e.preventDefault()
   try {
     const { data } = await axios
-    .post('http://localhost:1337/api/auth/local', {
+    .post('/auth/local', {
       identifier: values.email,
       password: values.password,
     })
     console.log(data);
+    localStorage.setItem('user', JSON.stringify(data.user))
+    localStorage.setItem('token', data.jwt)
   } catch (error) {
     console.log(error);
   }

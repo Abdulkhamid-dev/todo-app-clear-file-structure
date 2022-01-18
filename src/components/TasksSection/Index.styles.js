@@ -129,7 +129,7 @@ export const StyledAddTaskForm = styled.div`
   margin-bottom: 15px;
   border-radius: 4px;
   border: 1px solid ${COLORS.asideBorder};
-  div {
+  .main {
     box-shadow: 0 17px 0 -16px #e5e5e5;
     background-color: #f5f5f5;
     padding: 0 0.8rem !important;
@@ -162,13 +162,13 @@ export const StyledAddTaskForm = styled.div`
     font-size: 18px;
     color: var(--icon-silver);
   }
-  form {
+  .fake_form {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  form button {
+  .fake_form button {
     width: 65px;
     height: 25px;
     border: none;
@@ -177,8 +177,115 @@ export const StyledAddTaskForm = styled.div`
     font-size: 14px;
     background-color: white;
   }
-  form button:hover {
+  .fake_form button:hover {
     background-color: transparent;
+  }
+  .modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    align-tems: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 9999;
+  }
+  .modal-content {
+    position: absolute;
+    background-color: ${COLORS.lightGrey};
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    border-radius: ${pxToRem(6)};
+    .modal_header {
+      color: ${COLORS.main};
+      padding: 10px;
+      position: relative;
+      display: felx;
+      align-items: center;
+      justify-content: space-between;
+      background-color: transparent;
+      border: none;
+    }
+  } 
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: ${COLORS.main};
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .modal_body {
+    display: block;
+    padding-left: ${pxToRem(20)};
+    padding-right: ${pxToRem(20)};
+    label {
+      color: ${COLORS.blue};
+    }
+    input[type="text"], input[type="date"]{
+     border-bottom: 1px solid;
+     margin-bottom: ${pxToRem(10)};
+    }
+  }
+  .checkbox_block{
+    display: flex;
+    align-items: center;
+    width: 30%;
+    justify-content: space-between;
+    div {
+      display: flex;
+      align-items: center;      
+      input {
+        width: ${pxToRem(15)};
+       margin-left: ${pxToRem(5)};
+      }
+      label{
+        font-size: ${pxToRem(14)};
+      }
+    }
+  }
+  .module_footer {
+    margin-top: ${pxToRem(10)};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+      width: ${pxToRem(135)};
+      height: ${pxToRem(35)};
+      color: ${COLORS.white};
+      background-color: ${COLORS.blue};
+      border-radius: ${pxToRem(6)};
+      outline: none;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      &:hover {
+        background-color: ${COLORS.blueActive};
+      }
+    }
+  }
+  .select{
+    display: flex;
+    flex-direction: column;
+    select{
+      margin-top: ${pxToRem(10)};
+      height: ${pxToRem(30)};
+    }
   }
 `;
 export const StyledBgLine = styled.div`

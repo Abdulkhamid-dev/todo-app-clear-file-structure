@@ -22,6 +22,15 @@ const Tasks = () => {
     }
   };
 
+  const handleDeleteTodo = async (id) => {
+    try {
+        const {data} = axios.delete(`/todos/${id}`)
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
   useEffect(() => {
     getTodos();
   }, []);
@@ -30,7 +39,7 @@ const Tasks = () => {
     return (
       <StyledTasksList>
         {todos.map((item) => {
-          return <TaskItem key={item.id} title={item.attributes.title} />;
+          return <TaskItem compeleted={item.attributes.is_completed} key={item.id} title={item.attributes.title} important={item.attributes.is_important}  handleClick={() => handleDeleteTodo(item.id)}/>;
         })}
       </StyledTasksList>
     )  

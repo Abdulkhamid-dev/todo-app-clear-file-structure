@@ -8,19 +8,14 @@ import { pxToRem } from '../../utils/index';
 import axios from '../../utils/axios';
 
 function TaskItem(props) {
-    const handleDeleteTodo = async (id) => {
-        try {
-            const {data} = axios.delete(`/todos/${id}`)
-            console.log(data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    
     return (
         <StyledTask>
            <div>
            <div className='input_finished'>
-                <input type="checkbox" value={1}  id="checkboxOneInput" />
+                {
+                    props.compeleted ? <input type="checkbox" value={1}  id="checkboxOneInput" checked /> : <input type="checkbox" value={1}  id="checkboxOneInput" />
+                }
                 <label htmlFor="checkboxOneInput"></label>
             </div>
             <div className='task_title'>
@@ -28,10 +23,11 @@ function TaskItem(props) {
             </div>
            </div>
            <div className='addImportant'>
+           {
+                props.important ? < BsStarFill  color={`${COLORS.main}`} size={`${pxToRem(14)}`}/> :  < BiStar  color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`}/>
+           }
 
-           < BiStar  color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`}/>
-
-           < RiDeleteBinLine onClick={() =>  handleDeleteTodo(12)}  color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`}/>
+           < RiDeleteBinLine onClick={props.handleClick}  color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`}/>
 
            </div>
         </StyledTask>

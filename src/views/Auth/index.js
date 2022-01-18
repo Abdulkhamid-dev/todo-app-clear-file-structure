@@ -7,7 +7,7 @@ import Started from '../Started/Started';
 function Auth() {
     return (
         <Routes>
-        <Route path="/started" element={<Started />} />
+        <Route path="*" element={<Started />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
       </Routes>
