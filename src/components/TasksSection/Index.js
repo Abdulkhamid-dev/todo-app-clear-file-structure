@@ -11,7 +11,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils";
 
-function TasksSection() {
+function TasksSection(props) {
   return (
     <StyledTaskSection>
       <div id="main">
@@ -29,7 +29,7 @@ function TasksSection() {
                     </i>
                   </button>
 
-                  <h2>My Day</h2>
+                  <h2>{props.category}</h2>
                   <div>
                     <BsThreeDots
                       color={`${COLORS.greydark}`}
@@ -72,7 +72,7 @@ function TasksSection() {
           </div>
         </div>
         <AddTasks />
-        <Tasks />
+        <Tasks  filteredData={props.data}/>
         <BgLines />
       </div>
     </StyledTaskSection>

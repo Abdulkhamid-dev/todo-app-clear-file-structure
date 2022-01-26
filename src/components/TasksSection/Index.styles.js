@@ -328,23 +328,7 @@ export const StyledTask = styled.div`
     border: 1px solid ${COLORS.blueActive};
     position: relative;
     border-radius: 50%;
-    label {
-      display: block;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      transition: all 0.5s ease;
-      cursor: pointer;
-      position: absolute;
-      top: 1.8px;
-      left: 1.7px;
-      background: transparent;
-    }
-    input {
-      visibility: hidden;
-      &:checked + label {
-        background: ${COLORS.blueActive};
-      }
+    // input {}
     }
   }
   h2 {

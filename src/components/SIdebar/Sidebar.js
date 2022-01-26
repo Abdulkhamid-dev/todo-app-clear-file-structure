@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { NavLink } from "react-router-dom";
 import { StyledSidebar } from "./Sidebar.styles";
 import { VscMenu } from "react-icons/vsc";
 import { BsSun } from "react-icons/bs";
@@ -32,7 +33,7 @@ function Sidebar() {
         <div className="sidebarContent">
           <nav>
             <ul>
-              <div>
+              <NavLink to="/" className="menu-list-item">
                 <li>
                   <div>
                     <span>
@@ -45,8 +46,8 @@ function Sidebar() {
                     <span className="taskCount">2</span>
                   </div>
                 </li>
-              </div>
-              <div>
+              </NavLink >
+              <NavLink  to="/important" className="menu-list-item" >
                 <li>
                   <div>
                     <span>
@@ -59,8 +60,8 @@ function Sidebar() {
                     <span className="taskCount">2</span>
                   </div>
                 </li>
-              </div>
-              <div>
+              </NavLink>
+              <NavLink to="/completed" className="menu-list-item">
                 <li>
                   <div>
                     <span>
@@ -69,26 +70,12 @@ function Sidebar() {
                         size={`${pxToRem(16)}`}
                       />
                     </span>
-                    <span className="itemTitle">Planned</span>
+                    <span className="itemTitle">Completed</span>
                     <span className="taskCount">2</span>
                   </div>
                 </li>
-              </div>
-              <div>
-                <li>
-                  <div>
-                    <span>
-                      <AiOutlineUser
-                        color={`${COLORS.darkGrey}`}
-                        size={`${pxToRem(16)}`}
-                      />
-                    </span>
-                    <span className="itemTitle">Assign to me</span>
-                    <span className="taskCount">2</span>
-                  </div>
-                </li>
-              </div>
-              <div>
+              </NavLink>
+              <NavLink to="/tasks">
                 <li>
                   <div>
                     <span>
@@ -101,7 +88,7 @@ function Sidebar() {
                     <span className="taskCount">2</span>
                   </div>
                 </li>
-              </div>
+              </NavLink>
             </ul>
           </nav>
           <div className="sidebarAddList">

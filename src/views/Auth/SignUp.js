@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from 'sweetalert2'
 import { Link } from "react-router-dom";
 import { BiHide, BiShow} from "react-icons/bi";
 import microsoftLogo from "../../asstes/img/microsoft_logo.png";
@@ -26,9 +27,26 @@ function SignUp() {
     try {
       const { data } = await axios.post("/auth/local/register", values);
       console.log(data);
-      localStorage.setItem('user', JSON.stringify(data.user))
-      localStorage.setItem('token', data.jwt)
+      Swal.fire({
+        position: "middle",
+        icon: "success",
+        title: "You have successfully registered",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then((value) => {
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", data.jwt);
+        console.log(data);
+        window.location.href = "/";
+      });
     } catch (error) {
+      Swal.fire({
+        position: "middle",
+        icon: "error",
+        title: "Something went wrong",
+        showConfirmButton: false,
+        timer: 1500,
+      })
       console.log(error);
     }
   };

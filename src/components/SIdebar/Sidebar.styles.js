@@ -65,8 +65,30 @@ export const StyledSidebar = styled.aside`
       ul {
         padding-top: 8px;
         padding: 0;
-        .activeItem {
-          background-color: ${COLORS.activeGrey};
+        .menu-list-item{
+          transition: 0.5s ease-in-out;
+        }
+        .menu-list-item:hover{
+          li{
+            background-color: ${COLORS.activeGrey} !important; 
+            .itemTitle {
+              color: ${COLORS.main};
+            }  
+            .taskCount {
+              color: ${COLORS.main};
+            }
+          }
+        }
+        a.active{
+          li{
+            background-color: ${COLORS.activeGrey} !important; 
+            .itemTitle {
+              color: ${COLORS.main};
+            }  
+            .taskCount {
+              color: ${COLORS.main};
+            }
+          }
         }
         li {
           min-width: 50px;
@@ -109,6 +131,7 @@ export const StyledSidebar = styled.aside`
       }
     }
   }
+
   .sidebarAddList {
     flex-shrink: 0;
     z-index: 1;

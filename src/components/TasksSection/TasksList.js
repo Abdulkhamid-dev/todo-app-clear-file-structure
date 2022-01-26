@@ -1,52 +1,82 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { StyledTasksList } from "./Index.styles";
 import axios from "../../utils/axios";
 // import Data from "../../Mocks/todos";
 import TaskItem from "./TaskItem";
+import MainContext from "../../context/Context";
 
-const Tasks = () => {
-  const [todos, setTodos] = useState([]);
-  const [loader, setLoader] = useState(false);
-
-  const getTodos = async () => {
-    try {
-      setLoader(true)
-      const data = await axios.get("/todos");
-      const {data: todos} = data
-      console.log(data);
-      setTodos(todos.data);
-      setLoader(false)
-    } catch (error) {
-      console.log(error);
-      setLoader(false)
-    }
-  };
-
-  const handleDeleteTodo = async (id) => {
-    try {
-        const {data} = axios.delete(`/todos/${id}`)
-        console.log(data);
-    } catch (error) {
-        console.log(error);
-    }
-}
+const Tasks = (props) => {
+  const [loader, setLoader] = useState(false)
+  const contextUser = useContext(MainContext)
+  const {tasks, getAllData, setTasks} = contextUser
+  const {title, id, is_important, is_completed, collection_id, category, content, due_date} = tasks
 
   useEffect(() => {
-    getTodos();
+    contextUser.getAllData();
   }, []);
 
-   if (!loader) {
+
+ 
+
+
+  const deleteTask = async (id) => {
+    await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      console.log(result);
+      if (result.isConfirmed === true) {
+        try {
+          const filteredTasks = tasks.filter(i => i.id !== id)
+          setTasks(filteredTasks)
+         axios.delete(`/todos/${id}`)
+      } catch (error) {
+          console.log(error).then(() => {
+            Swal.fire(
+              'Can not delete!',
+              'Your file has not been deleted',
+              'error'
+            )
+          })
+      }
+      } 
+    })
+    getAllData()
+   }
+
+
+
+  
+
+
+  if (!loader) {
     return (
       <StyledTasksList>
-        {todos.map((item) => {
-          return <TaskItem compeleted={item.attributes.is_completed} key={item.id} title={item.attributes.title} important={item.attributes.is_important}  handleClick={() => handleDeleteTodo(item.id)}/>;
+        {props.filteredData.map((item) => {
+          const { id, attributes } = item;
+          return (
+            <TaskItem
+              compeleted={attributes.is_completed}
+              id={id}
+              key={id}
+              title={attributes.title}
+              important={attributes.is_important}
+              handleClick={() => deleteTask(item.id)}
+              data={{...attributes, id}}
+            />
+          );
         })}
       </StyledTasksList>
-    )  
-   } else {
-     return <h2>Loading...</h2>
-   }
-   
+    );
+  } else {
+    return <h2>Loading...</h2>;
+  }
 };
 
 export default Tasks;

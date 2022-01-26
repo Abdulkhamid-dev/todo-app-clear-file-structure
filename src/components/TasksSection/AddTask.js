@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { StyledAddTaskForm } from "./Index.styles";
 import { AiOutlinePlus } from "react-icons/ai";
 import axios from "../../utils/axios";
 import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils";
 import { useState } from "react/cjs/react.development";
+import MainContext from "../../context/Context";
+import Swal from "sweetalert2";
 // import './index.css'
 
 function AddTask() {
@@ -17,7 +19,10 @@ function AddTask() {
     category: "",
     collection_id: null,
   });
+  const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
+  const contextUser = useContext(MainContext)
+  const {getAllData, setTasks} = contextUser
 
   const handleInputChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -33,13 +38,29 @@ function AddTask() {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     try {
-      const { data } = await axios.post("/todos", { data: todo });
-      console.log(data);
+     await axios.post("/todos",  {data : todo}).then((value) => {
+       setLoading(false)
+       toggleModal()
+      Swal.fire({
+        icon: 'success',
+        title: 'Successfully done',
+        text: 'Your task submited',
+      })
+     })
     } catch (error) {
-      console.log(error);
+      setLoading(false)
+      console.log(error).then((value) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
+       })
     }
+    getAllData()
   };
 
   const { title, content, due_date, is_important, is_completed, category } =
@@ -87,6 +108,7 @@ function AddTask() {
               value={title}
               name="title"
               placeholder="Task name"
+              required
             />
           </div>
           <div>
@@ -98,6 +120,7 @@ function AddTask() {
               value={content}
               name="content"
               placeholder="Task content"
+              required
             />
           </div>
           <div>
@@ -108,6 +131,7 @@ function AddTask() {
               onChange={handleInputChange}
               value={due_date}
               name="due_date"
+              required
             />
           </div>
          <div className="checkbox_block">
@@ -134,7 +158,7 @@ function AddTask() {
          </div>
           <div className="select">
           <label htmlFor="category">Category</label>
-            <select name="category" id="category" value={category} onChange={handleInputChange}>
+            <select name="category" id="category" value={category} onChange={handleInputChange} required>
               <option  disabled>Select</option>
               <option value="education">Education</option>
               <option value="sport">Sport</option>
@@ -142,9 +166,7 @@ function AddTask() {
             </select>
           </div>
           <div className="module_footer">
-          <button type="submit">
-            Create
-          </button>
+         {loading ?  <button type="submit" disabled>Creating</button> :  <button type="submit">Create</button>}
           </div>
            </div>
         </form>
