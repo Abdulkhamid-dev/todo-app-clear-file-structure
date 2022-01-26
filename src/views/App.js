@@ -25,6 +25,7 @@ const App = () => {
     } catch (error) {
       console.log(error);
     }
+    window.location.reload(true)
   };
 
   const getAllData = useCallback( async () => {

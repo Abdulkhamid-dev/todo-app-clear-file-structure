@@ -19,7 +19,8 @@ export const COLORS = {
     fillIcons: '#605e5c',
     signingBg: '#f0e5e1',
     black: 'black',
-    blue: '#4461e2'
+    blue: '#4461e2',
+    red: 'red',
 }
 
 export  const STYLING_CONFIGS = {
