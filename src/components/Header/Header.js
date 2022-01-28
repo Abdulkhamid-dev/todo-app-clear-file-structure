@@ -77,9 +77,9 @@ function Header() {
           </div>
           <div>
             <li>
-           <div className="navIcon account">
+           <div className="navIcon account" onClick={toggleHide}>
            <div className="dropdown ">
-                <button className="dropbtn" onClick={toggleHide}>{firstCharacter}</button>
+                <button className="dropbtn">{firstCharacter}</button>
               {
                 hide ? null :  (
                   <div className="dropdown-content">

@@ -22,7 +22,7 @@ function AddTask() {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
   const contextUser = useContext(MainContext)
-  const {getAllData, setTasks} = contextUser
+  const {getAllData} = contextUser
 
   const handleInputChange = (e) => {
     const { name, value, checked, type } = e.target;

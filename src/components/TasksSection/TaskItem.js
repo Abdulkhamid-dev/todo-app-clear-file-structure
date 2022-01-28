@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { BiStar } from "react-icons/bi";
-import { BsStarFill } from "react-icons/bs";
+import { BsStar, BsStarFill } from "react-icons/bs";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { StyledTask } from "./Index.styles";
 import { COLORS } from "../../constants";
@@ -9,45 +9,46 @@ import axios from "../../utils/axios";
 import MainContext from "../../context/Context";
 
 const TaskItem = (props) => {
-  const {
-    id,
-    is_important,
-    is_completed,
-  } = props.data;
-  const [isImportant, setIsImportant] = useState(is_important);
-  const [isCompleted, setIsCompleted] = useState(is_completed);
+  console.log(props);
+  // const {
+  //   id,
+  //   is_important,
+  //   is_completed,
+  // } = props.data;
+  // const [isImportant, setIsImportant] = useState(is_important);
+  // const [isCompleted, setIsCompleted] = useState(is_completed);
 
-  useEffect(() => {
-    if (isImportant !== is_important) {
-      handleImportant();
-    }
-  }, [isImportant]);
+  // useEffect(() => {
+  //   if (isImportant !== is_important) {
+  //     handleImportant();
+  //   }
+  // }, [isImportant]);
 
-  useEffect(() => {
-    if (isCompleted !== is_completed) {
-      handleCompleted();
-    }
-  }, [isCompleted]);
+  // useEffect(() => {
+  //   if (isCompleted !== is_completed) {
+  //     handleCompleted();
+  //   }
+  // }, [isCompleted]);
 
-  const handleCompleted = async () => {
-    try {
-      const { data } = await axios.put(`/todos/${id}`, {
-        data: { is_completed: !is_completed },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleCompleted = async () => {
+  //   try {
+  //     const { data } = await axios.put(`/todos/${id}`, {
+  //       data: { is_completed: !is_completed },
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleImportant = async () => {
-    try {
-      const { data } = await axios.put(`/todos/${id}`, {
-        data: { is_important: !is_important },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleImportant = async () => {
+  //   try {
+  //     const { data } = await axios.put(`/todos/${id}`, {
+  //       data: { is_important: !is_important },
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const [check, setCheck] = useState(false);
 
@@ -61,8 +62,8 @@ const TaskItem = (props) => {
         <div className="input_finished">
             <input
               type="checkbox"
-              onChange={() => setIsCompleted(!is_completed)}
-             checked={isCompleted}
+              onChange={handleChange}
+             checked={props.compeleted}
             />
         </div>
         <div className="task_title">
@@ -70,8 +71,8 @@ const TaskItem = (props) => {
         </div>
       </div>
       <div className="addImportant">
-       <span onClick={() => setIsImportant(!is_important)}>
-           { is_important ?  <BsStarFill color={`${COLORS.main}`} size={`${pxToRem(14)}`} /> :  <BiStar color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`} />
+       <span>
+           { props.important ? <BsStarFill color={`${COLORS.main}`} size={`${pxToRem(14)}`} /> : <BsStar color={`${COLORS.greyBLack}`} size={`${pxToRem(14)}`} />
            }
        </span>
 

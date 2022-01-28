@@ -10,6 +10,7 @@ const App = () => {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState(() => JSON.parse(localStorage.user || "{}"));
   const [tasks, setTasks] = useState([]);
+  const [smth, setSmth] = useState([]);
   window.onload = () => {
     if (localStorage.token) {
       setLogged(true);
@@ -25,26 +26,28 @@ const App = () => {
     } catch (error) {
       console.log(error);
     }
-    window.location.reload(true)
+    window.location.reload(true)        
   };
 
-  const getAllData = useCallback( async () => {
+  const getAllData = async () => {
     try {
-      const {data: {data :allTodos}} = await axios.get("/todos");
-      console.log(allTodos);
-      setTasks(allTodos);
-      console.log(tasks);
+      const {data} = await axios.get("/todos");
+      let todos = data.data
+      console.log(todos);
+      setSmth(todos) 
+      // setTasks(todos); 
     } catch (error) {
       console.log(error);
     }
-  },[tasks])
+  }
 
+  console.log(smth);
 
 
 
   if (logged) {
     return (
-      <MainContext.Provider value={{ user, tasks, signOut, getAllData, setTasks }}>
+      <MainContext.Provider value={{ user, tasks, signOut, getAllData, setTasks, smth }}>
         <Suspense fallback="Loading...">
           <div>
             <Header />

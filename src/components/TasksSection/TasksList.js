@@ -9,12 +9,14 @@ import MainContext from "../../context/Context";
 const Tasks = (props) => {
   const [loader, setLoader] = useState(false)
   const contextUser = useContext(MainContext)
-  const {tasks, getAllData, setTasks} = contextUser
-  const {title, id, is_important, is_completed, collection_id, category, content, due_date} = tasks
+  const { getAllData, setTasks} = contextUser
+  // const {title, id, is_important, is_completed, collection_id, category, content, due_date} = tasks
 
   useEffect(() => {
     contextUser.getAllData();
   }, []);
+
+  console.log(props);
 
 
  
@@ -33,7 +35,7 @@ const Tasks = (props) => {
       console.log(result);
       if (result.isConfirmed === true) {
         try {
-          const filteredTasks = tasks.filter(i => i.id !== id)
+          const filteredTasks = props.filteredData.filter(i => i.id !== id)
           setTasks(filteredTasks)
          axios.delete(`/todos/${id}`)
       } catch (error) {
@@ -56,10 +58,12 @@ const Tasks = (props) => {
 
 
   if (!loader) {
+    // console.log(props.filteredData)
     return (
       <StyledTasksList>
         {props.filteredData.map((item) => {
           const { id, attributes } = item;
+          console.log(attributes);
           return (
             <TaskItem
               compeleted={attributes.is_completed}
