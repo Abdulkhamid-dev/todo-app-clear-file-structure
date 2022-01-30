@@ -18,11 +18,12 @@ function AddTask() {
     is_completed: false,
     category: "",
     collection_id: null,
+    user: null,
   });
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
   const contextUser = useContext(MainContext)
-  const {getAllData} = contextUser
+  const {getAllData, user} = contextUser
 
   const handleInputChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -40,8 +41,13 @@ function AddTask() {
   const handleSubmit = async (e) => {
     setLoading(true)
     e.preventDefault();
+    const updateData = {
+      ...todo,
+      user: user.id
+    }
     try {
-     await axios.post("/todos",  {data : todo}).then((value) => {
+     await axios.post("/todos",  {data : updateData}).then((value) => {
+       console.log(updateData);
        setLoading(false)
        toggleModal()
       Swal.fire({
@@ -60,7 +66,6 @@ function AddTask() {
         })
        })
     }
-    getAllData()
   };
 
   const { title, content, due_date, is_important, is_completed, category } =
@@ -159,9 +164,8 @@ function AddTask() {
           <div className="select">
           <label htmlFor="category">Category</label>
             <select name="category" id="category" value={category} onChange={handleInputChange} required>
-              <option  disabled>Select</option>
-              <option value="education">Education</option>
               <option value="sport">Sport</option>
+              <option value="education">Education</option>
               <option value="todo">Todo</option>
             </select>
           </div>

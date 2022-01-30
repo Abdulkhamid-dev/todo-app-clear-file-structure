@@ -12,6 +12,9 @@ import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils";
 
 function TasksSection(props) {
+
+
+
   return (
     <StyledTaskSection>
       <div id="main">
@@ -72,7 +75,7 @@ function TasksSection(props) {
           </div>
         </div>
         <AddTasks />
-        <Tasks  filteredData={props.data}/>
+        <Tasks filteredData={props.data} />
         <BgLines />
       </div>
     </StyledTaskSection>

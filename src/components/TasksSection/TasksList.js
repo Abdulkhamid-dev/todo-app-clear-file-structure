@@ -9,14 +9,25 @@ import MainContext from "../../context/Context";
 const Tasks = (props) => {
   const [loader, setLoader] = useState(false)
   const contextUser = useContext(MainContext)
-  const { getAllData, setTasks} = contextUser
-  // const {title, id, is_important, is_completed, collection_id, category, content, due_date} = tasks
+  const {user} = contextUser
+  const [allData, setAllData] = useState([])
+
+  const getAllData = async () => {
+    setLoader(true)
+    try {
+      const {data} = await axios.get(`/todos/?filters[user]=${user.id}&populate=*`);
+      const { data: allData } = data;
+      setAllData(allData);
+      setLoader(false)
+    } catch (error) {
+      console.log(error);
+      setLoader(false)
+    }
+  }
 
   useEffect(() => {
-    contextUser.getAllData();
+    getAllData()
   }, []);
-
-  console.log(props);
 
 
  
@@ -35,8 +46,8 @@ const Tasks = (props) => {
       console.log(result);
       if (result.isConfirmed === true) {
         try {
-          const filteredTasks = props.filteredData.filter(i => i.id !== id)
-          setTasks(filteredTasks)
+          const filteredTasks = allData.filter(i => i.id !== id)
+          setAllData(filteredTasks)
          axios.delete(`/todos/${id}`)
       } catch (error) {
           console.log(error).then(() => {
@@ -58,12 +69,10 @@ const Tasks = (props) => {
 
 
   if (!loader) {
-    // console.log(props.filteredData)
     return (
       <StyledTasksList>
-        {props.filteredData.map((item) => {
+        {allData.map((item) => {
           const { id, attributes } = item;
-          console.log(attributes);
           return (
             <TaskItem
               compeleted={attributes.is_completed}

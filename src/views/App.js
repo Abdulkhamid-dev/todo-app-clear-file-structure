@@ -1,7 +1,6 @@
-import React, { useState, lazy, Suspense, useCallback } from "react";
-import Swal from "sweetalert2";
+import React, { useState, lazy, Suspense, useEffect } from "react";
 import MainContext from "../context/Context";
-import axios from "../utils/axios";
+import axios from '../utils/axios'
 const Header = lazy(() => import("../components/Header/Header"));
 const Main = lazy(() => import("../components/Main/Main"));
 const Auth = lazy(() => import("../views/Auth/index"));
@@ -9,8 +8,7 @@ const Auth = lazy(() => import("../views/Auth/index"));
 const App = () => {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState(() => JSON.parse(localStorage.user || "{}"));
-  const [tasks, setTasks] = useState([]);
-  const [smth, setSmth] = useState([]);
+  const [smth, setSmth] = useState([])
   window.onload = () => {
     if (localStorage.token) {
       setLogged(true);
@@ -22,32 +20,17 @@ const App = () => {
       setUser({});
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      console.log("hello");
     } catch (error) {
       console.log(error);
     }
     window.location.reload(true)        
   };
 
-  const getAllData = async () => {
-    try {
-      const {data} = await axios.get("/todos");
-      let todos = data.data
-      console.log(todos);
-      setSmth(todos) 
-      // setTasks(todos); 
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  console.log(smth);
-
-
+  
 
   if (logged) {
     return (
-      <MainContext.Provider value={{ user, tasks, signOut, getAllData, setTasks, smth }}>
+      <MainContext.Provider value={{ user,  signOut}}>
         <Suspense fallback="Loading...">
           <div>
             <Header />

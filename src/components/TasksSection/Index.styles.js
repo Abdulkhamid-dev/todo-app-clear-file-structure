@@ -192,8 +192,8 @@ export const StyledAddTaskForm = styled.div`
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     z-index: 9999;
   }
   .modal-content {
@@ -216,14 +216,14 @@ export const StyledAddTaskForm = styled.div`
       background-color: transparent;
       border: none;
     }
-  } 
+  }
   .close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
   }
-  
+
   .close:hover,
   .close:focus {
     color: ${COLORS.main};
@@ -237,24 +237,25 @@ export const StyledAddTaskForm = styled.div`
     label {
       color: ${COLORS.blue};
     }
-    input[type="text"], input[type="date"]{
-     border-bottom: 1px solid;
-     margin-bottom: ${pxToRem(10)};
+    input[type="text"],
+    input[type="date"] {
+      border-bottom: 1px solid;
+      margin-bottom: ${pxToRem(10)};
     }
   }
-  .checkbox_block{
+  .checkbox_block {
     display: flex;
     align-items: center;
     width: 30%;
     justify-content: space-between;
     div {
       display: flex;
-      align-items: center;      
+      align-items: center;
       input {
         width: ${pxToRem(15)};
-       margin-left: ${pxToRem(5)};
+        margin-left: ${pxToRem(5)};
       }
-      label{
+      label {
         font-size: ${pxToRem(14)};
       }
     }
@@ -264,7 +265,7 @@ export const StyledAddTaskForm = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    button{
+    button {
       width: ${pxToRem(135)};
       height: ${pxToRem(35)};
       color: ${COLORS.white};
@@ -279,10 +280,10 @@ export const StyledAddTaskForm = styled.div`
       }
     }
   }
-  .select{
+  .select {
     display: flex;
     flex-direction: column;
-    select{
+    select {
       margin-top: ${pxToRem(10)};
       height: ${pxToRem(30)};
     }
@@ -328,6 +329,40 @@ export const StyledTask = styled.div`
     border: 1px solid ${COLORS.blueActive};
     position: relative;
     border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    &:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    .tooltiptext {
+      visibility: hidden;
+      width: 100px;
+      background-color: ${COLORS.white};
+      color: ${COLORS.black};
+      text-align: center;
+      border: 1px solid;
+      border-radius: 2px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 455%;
+      margin-left: -60px;
+      opacity: 0;
+      font-size: ${pxToRem(10)};
+      transition:  0.5s ease-in-out;
+      &:after{
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 20%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+      }
+    }
     // input {}
     }
   }
@@ -339,5 +374,48 @@ export const StyledTask = styled.div`
   }
   .addImportant {
     padding-right: 15px;
+    div{
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      padding: ${pxToRem(4)};
+      margin: ${pxToRem(2)};
+      transition: 0.2s ease-in-out;
+      border-radius: ${pxToRem(3)};
+      &:hover{
+        background-color: ${COLORS.activeGrey};
+      } &:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+      .tooltiptext {
+        visibility: hidden;
+        width: 100px;
+        background-color: ${COLORS.white};
+        color: ${COLORS.black};
+        text-align: center;
+        border: 1px solid;
+        border-radius: 2px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        font-size: ${pxToRem(10)};
+        transition:  0.5s ease-in-out;
+        &:after{
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 60%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }
+      }
+    }
   }
 `;
