@@ -12,12 +12,17 @@ import { IoMdAttach } from "react-icons/io";
 import { ImCheckmark2 } from "react-icons/im";
 import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function Sidebar() {
   const inputRef = useRef();
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.auth)
   const toggleEditing = () => {
     inputRef.current.focus();
   };
+  const {tasks, importants, completed} = store
   return (
     <StyledSidebar>
       <div className="sidebar">
@@ -43,7 +48,7 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">My Day</span>
-                    <span className="taskCount">2</span>
+                    <span className="taskCount">{tasks.length}</span>
                   </div>
                 </li>
               </NavLink >
@@ -57,7 +62,7 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Important</span>
-                    <span className="taskCount">2</span>
+                    <span className="taskCount">{importants.length}</span>
                   </div>
                 </li>
               </NavLink>
@@ -71,7 +76,7 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Completed</span>
-                    <span className="taskCount">2</span>
+                    <span className="taskCount">{completed.length}</span>
                   </div>
                 </li>
               </NavLink>
@@ -85,7 +90,7 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Tasks</span>
-                    <span className="taskCount">2</span>
+                    <span className="taskCount">{tasks.length}</span>
                   </div>
                 </li>
               </NavLink>

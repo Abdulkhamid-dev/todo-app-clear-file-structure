@@ -7,9 +7,14 @@ import { pxToRem } from "../../utils";
 import { useState } from "react/cjs/react.development";
 import MainContext from "../../context/Context";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 // import './index.css'
 
 function AddTask() {
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.auth)
+  const {id} = store?.initialAuthState?.user
   const [todo, setTodo] = useState({
     title: "",
     content: "",
@@ -18,7 +23,7 @@ function AddTask() {
     is_completed: false,
     category: "",
     collection_id: null,
-    user: null,
+    user: id,
   });
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
@@ -41,13 +46,10 @@ function AddTask() {
   const handleSubmit = async (e) => {
     setLoading(true)
     e.preventDefault();
-    const updateData = {
-      ...todo,
-      user: user.id
-    }
+   
     try {
-     await axios.post("/todos",  {data : updateData}).then((value) => {
-       console.log(updateData);
+     await axios.post("/todos",  {data : todo}).then((value) => {
+       console.log(todo);
        setLoading(false)
        toggleModal()
       Swal.fire({

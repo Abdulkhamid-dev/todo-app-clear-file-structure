@@ -5,8 +5,11 @@ import axios from "../../utils/axios";
 // import Data from "../../Mocks/todos";
 import TaskItem from "./TaskItem";
 import MainContext from "../../context/Context";
+import {useDispatch, useSelector} from 'react-redux';
 
 const Tasks = (props) => {
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.auth)
   const [loader, setLoader] = useState(false)
   const contextUser = useContext(MainContext)
   const {user} = contextUser
@@ -15,7 +18,7 @@ const Tasks = (props) => {
   const getAllData = async () => {
     setLoader(true)
     try {
-      const {data} = await axios.get(`/todos/?filters[user]=${user.id}&populate=*`);
+      const {data} = await axios.get(`/todos`);
       const { data: allData } = data;
       setAllData(allData);
       setLoader(false)
@@ -25,12 +28,6 @@ const Tasks = (props) => {
     }
   }
 
-  useEffect(() => {
-    getAllData()
-  }, []);
-
-
- 
 
 
   const deleteTask = async (id) => {
@@ -66,12 +63,12 @@ const Tasks = (props) => {
 
 
   
-
+console.log(props);
 
   if (!loader) {
     return (
       <StyledTasksList>
-        {allData.map((item) => {
+        {props.filteredData.map((item) => {
           const { id, attributes } = item;
           return (
             <TaskItem
