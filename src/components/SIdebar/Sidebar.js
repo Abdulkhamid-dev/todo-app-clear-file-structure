@@ -48,7 +48,7 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">My Day</span>
-                    <span className="taskCount">{tasks.length}</span>
+                    <span className="taskCount">{tasks?.length}</span>
                   </div>
                 </li>
               </NavLink >
@@ -62,7 +62,7 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Important</span>
-                    <span className="taskCount">{importants.length}</span>
+                    <span className="taskCount">{importants?.length}</span>
                   </div>
                 </li>
               </NavLink>
@@ -76,7 +76,7 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Completed</span>
-                    <span className="taskCount">{completed.length}</span>
+                    <span className="taskCount">{completed?.length}</span>
                   </div>
                 </li>
               </NavLink>
@@ -90,7 +90,7 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Tasks</span>
-                    <span className="taskCount">{tasks.length}</span>
+                    <span className="taskCount">{tasks?.length}</span>
                   </div>
                 </li>
               </NavLink>

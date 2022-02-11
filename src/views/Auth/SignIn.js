@@ -5,13 +5,20 @@ import { BiHide, BiShow } from "react-icons/bi";
 import microsoftLogo from "../../asstes/img/microsoft_logo.png";
 import { StyledSignUp } from "./Auth.style";
 import axios from "../../utils/axios";
+import { useDispatch } from 'react-redux';
+import { signInAction } from '../../store/auth/actions';
 
 function SignIn() {
+  const dispatch = useDispatch();
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
   const { email, password } = values;
+  const formData = {
+    identifier: email,
+    password: password,
+  }
 
   const [hide, setHide] = useState(true);
 
@@ -26,10 +33,7 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/auth/local", {
-        identifier: email,
-        password: password,
-      });
+      const { data } = await axios.post("/auth/local", formData);
       Swal.fire({
         position: "middle",
         icon: "success",
@@ -40,6 +44,11 @@ function SignIn() {
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.jwt);
         console.log(data);
+        const userData = {
+          token: data.jwt,
+          user: data.user
+        }
+        dispatch(signInAction(userData));
         window.location.href = "/";
       });
     } catch (error) {

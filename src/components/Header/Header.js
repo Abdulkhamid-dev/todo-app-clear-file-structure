@@ -48,7 +48,6 @@ function Header() {
   };
 
   const handleSignOut = () => {
-    const {initialAuthState} = store
     dispatch({
       type: "SIGN_OUT",
       payload: {
@@ -118,7 +117,7 @@ function Header() {
               <div className="navIcon notification">
                 <a href="#!">
                   <AiOutlineNotification color="#fff" size={20} />
-                  <span className="notificationCount">{store.tasks.length}</span>
+                  <span className="notificationCount">{store.tasks?.length}</span>
                 </a>
               </div>
             </li>
@@ -136,11 +135,10 @@ function Header() {
                       </div>
                       <hr />
                       <a onClick={handleSignOut}>
-                        {" "}
                         <span>
                           <ImExit color={`${COLORS.sidebarItem}`} />
-                        </span>{" "}
-                        <span>Sign out</span>{" "}
+                        </span>
+                        <span>Sign out</span>
                       </a>
                     </div>
                   )}

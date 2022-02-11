@@ -1,12 +1,15 @@
-import { createStore, combineReducers } from "redux";
-import authentication from "./auth/store";
-import gettingData from "./auth/store";
+import { createStore, combineReducers,  } from "redux";
+import authentication from "./auth/reducer";
+import gettingDatas from "./data/reducerData";
+
+
 
 const rootReducer = combineReducers({
   auth: authentication,
-  allData: gettingData,
+  datas: gettingDatas,
 });
+
 
 const store = createStore(rootReducer);
 
-export default store;
+export {store};

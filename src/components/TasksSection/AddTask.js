@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 function AddTask() {
   const dispatch = useDispatch()
   const store = useSelector(state => state.auth)
-  const {id} = store?.initialAuthState?.user
+  const {id} = store?.user
   const [todo, setTodo] = useState({
     title: "",
     content: "",
@@ -23,7 +23,8 @@ function AddTask() {
     is_completed: false,
     category: "",
     collection_id: null,
-    user: id,
+    ownerID: null,
+    user: null,
   });
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
@@ -48,8 +49,13 @@ function AddTask() {
     e.preventDefault();
    
     try {
-     await axios.post("/todos",  {data : todo}).then((value) => {
-       console.log(todo);
+      const updateData = {
+        ...todo,
+        ownerID: id,
+        user: id
+      }
+     await axios.post("/todos",  {data : updateData}).then((value) => {
+       console.log(updateData);
        setLoading(false)
        toggleModal()
       Swal.fire({

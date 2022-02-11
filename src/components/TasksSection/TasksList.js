@@ -6,14 +6,16 @@ import axios from "../../utils/axios";
 import TaskItem from "./TaskItem";
 import MainContext from "../../context/Context";
 import {useDispatch, useSelector} from 'react-redux';
+import {store} from '../../store/index'
 
 const Tasks = (props) => {
   const dispatch = useDispatch()
-  const store = useSelector(state => state.auth)
+  const store = useSelector(state => state)
   const [loader, setLoader] = useState(false)
   const contextUser = useContext(MainContext)
   const {user} = contextUser
   const [allData, setAllData] = useState([])
+  console.log(store);
 
   const getAllData = async () => {
     setLoader(true)
@@ -68,7 +70,7 @@ console.log(props);
   if (!loader) {
     return (
       <StyledTasksList>
-        {props.filteredData.map((item) => {
+        {[].map((item) => {
           const { id, attributes } = item;
           return (
             <TaskItem

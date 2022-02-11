@@ -5,8 +5,11 @@ import { BiHide, BiShow} from "react-icons/bi";
 import microsoftLogo from "../../asstes/img/microsoft_logo.png";
 import { StyledSignUp } from "./Auth.style";
 import axios from "../../utils/axios";
+import { useDispatch } from 'react-redux';
+import { signUpAction } from '../../store/auth/actions';
 
 function SignUp() {
+  const dispatch = useDispatch()
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -37,6 +40,11 @@ function SignUp() {
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.jwt);
         console.log(data);
+        const userData = {
+          token: data.jwt,
+          user: data.user
+        }
+        dispatch(signUpAction(userData))
         window.location.href = "/";
       });
     } catch (error) {
