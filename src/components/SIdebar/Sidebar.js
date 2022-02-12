@@ -17,12 +17,14 @@ import { useDispatch } from "react-redux";
 
 function Sidebar() {
   const inputRef = useRef();
-  const dispatch = useDispatch()
-  const store = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state.datas);
   const toggleEditing = () => {
     inputRef.current.focus();
   };
-  const {tasks, importants, completed} = store
+
+    
+  const { tasks, importants, completed } = store;
   return (
     <StyledSidebar>
       <div className="sidebar">
@@ -48,11 +50,13 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">My Day</span>
-                    <span className="taskCount">{tasks?.length}</span>
+                    <span className="taskCount">{
+                      store?.length ? store?.length : null
+                    }</span>
                   </div>
                 </li>
-              </NavLink >
-              <NavLink  to="/important" className="menu-list-item" >
+              </NavLink>
+              <NavLink to="/important" className="menu-list-item">
                 <li>
                   <div>
                     <span>
@@ -62,7 +66,15 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Important</span>
-                    <span className="taskCount">{importants?.length}</span>
+                    <span className="taskCount">
+                      {store?.filter(
+                        (item) => item.attributes?.is_important === true
+                      )?.length
+                        ? store?.filter(
+                            (item) => item.attributes?.is_important === true
+                          )?.length
+                        : null}
+                    </span>
                   </div>
                 </li>
               </NavLink>
@@ -76,7 +88,15 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Completed</span>
-                    <span className="taskCount">{completed?.length}</span>
+                    <span className="taskCount">
+                      {store?.filter(
+                        (item) => item.attributes?.is_completed === true
+                      )?.length
+                        ? store?.filter(
+                            (item) => item.attributes?.is_completed === true
+                          )?.length
+                        : null}
+                    </span>
                   </div>
                 </li>
               </NavLink>
@@ -90,7 +110,9 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Tasks</span>
-                    <span className="taskCount">{tasks?.length}</span>
+                    <span className="taskCount">{
+                      store?.length ? store?.length : null
+                    }</span>
                   </div>
                 </li>
               </NavLink>
@@ -105,7 +127,7 @@ function Sidebar() {
                 />
               </button>
               <form>
-              <input type="text" ref={inputRef} placeholder="Create list" />
+                <input type="text" ref={inputRef} placeholder="Create list" />
               </form>
             </div>
             <div className="addGroup">

@@ -11,10 +11,12 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { VscSearch } from "react-icons/vsc";
 import axios from "../../utils/axios";
 import {useDispatch, useSelector} from 'react-redux';
+import {searchTask} from '../../store/data/dataActions'
 
 function Header() {
   const dispatch = useDispatch()
-  const store = useSelector(state => state.auth)
+  const store = useSelector(state => state)
+  const {auth, datas} = store
   const [search, setSearch] = useState("");
   const inputRef = useRef();
   const toggleEditing = () => {
@@ -29,6 +31,8 @@ function Header() {
         `/todos?filters[title][$contains]=${search}`
       );
       let searchResult = data.data;
+      let datas = searchResult.filter(item => item.attributes.ownerID === auth?.user?.id)
+      dispatch(searchTask(datas));
       console.log(searchResult);
     } catch (error) {
       console.log(error);
@@ -38,7 +42,7 @@ function Header() {
 
   const contextUser = useContext(MainContext);
   const { user, signOut } = contextUser;
-  const firstCharacter = user.username[0].toUpperCase();
+  const firstCharacter = auth?.user?.username[0].toUpperCase();
   const toggleHide = () => {
     setHide(!hide);
   };
@@ -117,7 +121,7 @@ function Header() {
               <div className="navIcon notification">
                 <a href="#!">
                   <AiOutlineNotification color="#fff" size={20} />
-                  <span className="notificationCount">{store.tasks?.length}</span>
+                  <span className="notificationCount">{datas?.length}</span>
                 </a>
               </div>
             </li>
@@ -131,7 +135,7 @@ function Header() {
                     <div className="dropdown-content">
                       <div>
                         <p>Signed in as</p>
-                        <h5>{user.username}</h5>
+                        <h5>{auth?.user?.username}</h5>
                       </div>
                       <hr />
                       <a onClick={handleSignOut}>

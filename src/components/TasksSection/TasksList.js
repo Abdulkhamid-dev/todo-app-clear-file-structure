@@ -7,28 +7,17 @@ import TaskItem from "./TaskItem";
 import MainContext from "../../context/Context";
 import {useDispatch, useSelector} from 'react-redux';
 import {store} from '../../store/index'
+import {deleteItem} from '../../store/data/dataActions'
 
 const Tasks = (props) => {
   const dispatch = useDispatch()
-  const store = useSelector(state => state)
+  const store = useSelector(state => state.datas)
   const [loader, setLoader] = useState(false)
   const contextUser = useContext(MainContext)
   const {user} = contextUser
   const [allData, setAllData] = useState([])
   console.log(store);
 
-  const getAllData = async () => {
-    setLoader(true)
-    try {
-      const {data} = await axios.get(`/todos`);
-      const { data: allData } = data;
-      setAllData(allData);
-      setLoader(false)
-    } catch (error) {
-      console.log(error);
-      setLoader(false)
-    }
-  }
 
 
 
@@ -45,8 +34,8 @@ const Tasks = (props) => {
       console.log(result);
       if (result.isConfirmed === true) {
         try {
-          const filteredTasks = allData.filter(i => i.id !== id)
-          setAllData(filteredTasks)
+          const filteredTasks = store?.filter(i => i.id !== id)
+          dispatch(deleteItem(filteredTasks));
          axios.delete(`/todos/${id}`)
       } catch (error) {
           console.log(error).then(() => {
@@ -59,7 +48,6 @@ const Tasks = (props) => {
       }
       } 
     })
-    getAllData()
    }
 
 
@@ -70,7 +58,7 @@ console.log(props);
   if (!loader) {
     return (
       <StyledTasksList>
-        {[].map((item) => {
+        {props.filteredData.map((item) => {
           const { id, attributes } = item;
           return (
             <TaskItem

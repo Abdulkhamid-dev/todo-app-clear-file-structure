@@ -13,8 +13,9 @@ import { useSelector } from "react-redux";
 
 function AddTask() {
   const dispatch = useDispatch()
-  const store = useSelector(state => state.auth)
-  const {id} = store?.user
+  const store = useSelector(state => state)
+  const {auth, datas} = store
+  const {id} = auth?.user
   const [todo, setTodo] = useState({
     title: "",
     content: "",
@@ -57,6 +58,8 @@ function AddTask() {
      await axios.post("/todos",  {data : updateData}).then((value) => {
        console.log(updateData);
        setLoading(false)
+       const newData = datas.push(updateData)
+       dispatch(getAllData(newData))
        toggleModal()
       Swal.fire({
         icon: 'success',

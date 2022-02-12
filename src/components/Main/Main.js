@@ -19,10 +19,10 @@ function Main(props) {
     const store = useSelector(state => state)
    const {id} = store.auth.user
     
-   console.log(store.datas);
+   console.log(store, 'stoooooreeeee');
 
 
-  const fetchingAllDatas = async () => {
+   const fetchingAllDatas = async () => {
     try {
       const {data} = await axios.get(`/todos/?filters[ownerID]=${id}`);
       let todos = data.data
@@ -32,30 +32,9 @@ function Main(props) {
       console.log(error);
     }
   }
-  const fetchingAllImportants = async () => {
-    try {
-      const {data} = await axios.get(`/todos/?filters[ownerID]=${id}&filters[is_important]=true`);
-      let todos = data.data
-      console.log(todos);
-      dispatch(getAllImportant(todos));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  const fetchingAllCompleted = async () => {
-    try {
-      const {data} = await axios.get(`/todos/?filters[ownerID]=${id}&filters[is_completed]=true`);
-      let todos = data.data
-      console.log(todos);
-      dispatch(getAllCompleted(todos));
-    } catch (error) {
-      console.log(error);
-    }
-  }
+ 
   useEffect(() => {
     fetchingAllDatas();
-    fetchingAllImportants();
-    fetchingAllCompleted();
   }, []);
 
 
@@ -64,8 +43,8 @@ function Main(props) {
             <Sidebar/>
             <Routes>
                 <Route path="/" element={<TasksSection category="My day" data={store?.datas}/>} />
-                <Route path="/completed" element={<TasksSection category="Completed" data={store?.datas}/>}/>
-                <Route path="/important" element={<TasksSection category="Important" data={store?.datas} />}/>
+                <Route path="/completed" element={<TasksSection category="Completed" data={store?.datas.filter(item => item.attributes.is_completed === true)}/>}/>
+                <Route path="/important" element={<TasksSection category="Important" data={store?.datas.filter(item => item.attributes.is_important === true)} />}/>
                 <Route path="/tasks" element={<TasksSection category="All tasks" data={store?.datas}/>}/>
             </Routes>
         </StyledMain>
