@@ -6,7 +6,6 @@ import axios from "../../utils/axios";
 import TaskItem from "./TaskItem";
 import MainContext from "../../context/Context";
 import {useDispatch, useSelector} from 'react-redux';
-import {store} from '../../store/index'
 import {deleteItem} from '../../store/data/dataActions'
 
 const Tasks = (props) => {

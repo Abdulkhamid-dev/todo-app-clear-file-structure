@@ -22,7 +22,7 @@ function AddTask() {
     due_date: "",
     is_important: false,
     is_completed: false,
-    category: "",
+    category: "education",
     collection_id: null,
     ownerID: null,
     user: null,
