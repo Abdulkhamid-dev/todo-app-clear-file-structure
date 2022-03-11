@@ -11,11 +11,10 @@ const initialState = [];
 export default function gettingDatas(state = initialState, action) {
   switch (action.type) {
     case GET_DATAS: {
-      console.log(action.payload, "payyyyloooood");
-      return [...state, ...action.payload];
+      return [ ...action.payload];
     }
     case DELETE_EACH: {
-      return [...state, ...action.payload];
+      return [ ...action.payload];
     }
     case GET_SEARCH: {
       return [...action.payload];

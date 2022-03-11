@@ -13,7 +13,7 @@ import { pxToRem } from "../../utils";
 
 function TasksSection(props) {
 
-console.log(props);
+
 
   return (
     <StyledTaskSection>

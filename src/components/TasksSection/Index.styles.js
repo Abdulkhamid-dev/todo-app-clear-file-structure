@@ -303,6 +303,10 @@ export const StyledBgLine = styled.div`
 `;
 
 export const StyledTasksList = styled.div`
+::-webkit-scrollbar {
+  display: none;
+}
+overflow: scroll;
   margin: 0 8px;
   width: 100%;
 `;

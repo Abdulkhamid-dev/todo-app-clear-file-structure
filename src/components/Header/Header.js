@@ -42,7 +42,7 @@ function Header() {
 
   const contextUser = useContext(MainContext);
   const { user, signOut } = contextUser;
-  const firstCharacter = auth?.user?.username[0].toUpperCase();
+  const firstCharacter = auth?.user?.username[0]?.toUpperCase();
   const toggleHide = () => {
     setHide(!hide);
   };
@@ -68,8 +68,7 @@ function Header() {
     });
     signOut();
   };
-  
-  console.log(store);
+
 
   return (
     <StyledHeader>

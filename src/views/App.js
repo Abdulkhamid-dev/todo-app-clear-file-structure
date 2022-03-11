@@ -38,7 +38,6 @@ const App = () => {
       let todos = data.data;
       console.log(todos);
       setSmth(todos);
-      // setTasks(todos);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +56,6 @@ const App = () => {
     }
   };
 
-  console.log(smth);
 
        return (
         logged ? (

@@ -17,9 +17,6 @@ const initialAuthState = localStorage.getItem('token')
 
 
 
-console.log(initialAuthState);
-
-
 export default function authentication(state = initialAuthState, action) {
   switch (action.type) {
     case SIGN_OUT: {

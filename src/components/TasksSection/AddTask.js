@@ -5,17 +5,16 @@ import axios from "../../utils/axios";
 import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils";
 import { useState } from "react/cjs/react.development";
-import MainContext from "../../context/Context";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-// import './index.css'
+import { getAllData } from "../../store/data/dataActions";
 
 function AddTask() {
-  const dispatch = useDispatch()
-  const store = useSelector(state => state)
-  const {auth, datas} = store
-  const {id} = auth?.user
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
+  const { auth, datas } = store;
+  const { id } = auth?.user;
   const [todo, setTodo] = useState({
     title: "",
     content: "",
@@ -27,10 +26,8 @@ function AddTask() {
     ownerID: null,
     user: null,
   });
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const contextUser = useContext(MainContext)
-  const {getAllData, user} = contextUser
 
   const handleInputChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -41,41 +38,47 @@ function AddTask() {
     }
   };
 
+  const fetchingAllDatas = async () => {
+    try {
+      const { data } = await axios.get(`/todos/?filters[ownerID]=${id}`);
+      let todos = data.data;
+      dispatch(getAllData(todos));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const toggleModal = () => {
     setOpen(!open);
   };
 
   const handleSubmit = async (e) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
-   
+
     try {
       const updateData = {
         ...todo,
         ownerID: id,
-        user: id
-      }
-     await axios.post("/todos",  {data : updateData}).then((value) => {
-       console.log(updateData);
-       setLoading(false)
-       const newData = datas.push(updateData)
-       dispatch(getAllData(newData))
-       toggleModal()
-      Swal.fire({
-        icon: 'success',
-        title: 'Successfully done',
-        text: 'Your task submited',
-      })
-     })
+        user: id,
+      };
+      await axios.post("/todos", { data: updateData });
+      await fetchingAllDatas();
+      await console.log(store);
+      await setLoading(false);
+      await toggleModal();
+      await Swal.fire({
+        icon: "success",
+        title: "Successfully done",
+        text: "Your task submited",
+      });
     } catch (error) {
-      setLoading(false)
-      console.log(error).then((value) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
-        })
-       })
+      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   };
 
@@ -87,7 +90,7 @@ function AddTask() {
         <button className="plus_btn">
           <AiOutlinePlus color={`${COLORS.greydark}`} size={`${pxToRem(16)}`} />
         </button>
-        <form className="fake_form"  onClick={toggleModal}>
+        <form className="fake_form" onClick={toggleModal}>
           <p>
             <input
               type="text"
@@ -97,7 +100,7 @@ function AddTask() {
               disabled
             />
           </p>
-          <button type="submit" onClick={handleSubmit}>
+          <button type="submit" onClick={(e) => e.preventDefault()}>
             Create
           </button>
         </form>
@@ -107,84 +110,96 @@ function AddTask() {
           style={{ display: open ? "flex" : "none" }}
         >
           <div className="modal-content">
-           <div className="modal_header">
-            <h3>Add task</h3>
-           <span className="close" onClick={toggleModal}>
-              &times;
-            </span>
-           </div>
-           <form onSubmit={handleSubmit}>
-           <div className="modal_body">
-          <div>
-            <label htmlFor="name">Task name</label>
-            <input
-              type="text"
-              id="name"
-              onChange={handleInputChange}
-              value={title}
-              name="title"
-              placeholder="Task name"
-              required
-            />
-          </div>
-          <div>
-          <label htmlFor="content">Task content</label>
-            <input
-              type="text"
-              id="content"
-              onChange={handleInputChange}
-              value={content}
-              name="content"
-              placeholder="Task content"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="due_date">Date</label>
-            <input
-              type="date"
-              id="due_date"
-              onChange={handleInputChange}
-              value={due_date}
-              name="due_date"
-              required
-            />
-          </div>
-         <div className="checkbox_block">
-         <div>
-            <label htmlFor="is_important">Important</label>
-            <input
-              type="checkbox"
-              id="is_important"
-              onChange={handleInputChange}
-              value={is_important}
-              name="is_important"
-            />
-          </div>
-          <div>
-            <label htmlFor="is_completed">Complited</label>
-            <input
-              type="checkbox"
-              id="is_completed"
-              onChange={handleInputChange}
-              value={is_completed}
-              name="is_completed"
-            />
-          </div>
-         </div>
-          <div className="select">
-          <label htmlFor="category">Category</label>
-            <select name="category" id="category" value={category} onChange={handleInputChange} required>
-              <option value="sport">Sport</option>
-              <option value="education">Education</option>
-              <option value="todo">Todo</option>
-            </select>
-          </div>
-          <div className="module_footer">
-         {loading ?  <button type="submit" disabled>Creating</button> :  <button type="submit">Create</button>}
-          </div>
-           </div>
-        </form>
+            <div className="modal_header">
+              <h3>Add task</h3>
+              <span className="close" onClick={toggleModal}>
+                &times;
+              </span>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <div className="modal_body">
+                <div>
+                  <label htmlFor="name">Task name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    onChange={handleInputChange}
+                    value={title}
+                    name="title"
+                    placeholder="Task name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="content">Task content</label>
+                  <input
+                    type="text"
+                    id="content"
+                    onChange={handleInputChange}
+                    value={content}
+                    name="content"
+                    placeholder="Task content"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="due_date">Date</label>
+                  <input
+                    type="date"
+                    id="due_date"
+                    onChange={handleInputChange}
+                    value={due_date}
+                    name="due_date"
+                    required
+                  />
+                </div>
+                <div className="checkbox_block">
+                  <div>
+                    <label htmlFor="is_important">Important</label>
+                    <input
+                      type="checkbox"
+                      id="is_important"
+                      onChange={handleInputChange}
+                      value={is_important}
+                      name="is_important"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="is_completed">Complited</label>
+                    <input
+                      type="checkbox"
+                      id="is_completed"
+                      onChange={handleInputChange}
+                      value={is_completed}
+                      name="is_completed"
+                    />
+                  </div>
+                </div>
+                <div className="select">
+                  <label htmlFor="category">Category</label>
+                  <select
+                    name="category"
+                    id="category"
+                    value={category}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="sport">Sport</option>
+                    <option value="education">Education</option>
+                    <option value="todo">Todo</option>
+                  </select>
+                </div>
+                <div className="module_footer">
+                  {loading ? (
+                    <button type="submit" disabled>
+                      Creating
+                    </button>
+                  ) : (
+                    <button type="submit">Create</button>
+                  )}
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

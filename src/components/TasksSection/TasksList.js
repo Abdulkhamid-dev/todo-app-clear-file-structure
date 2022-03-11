@@ -15,9 +15,6 @@ const Tasks = (props) => {
   const contextUser = useContext(MainContext)
   const {user} = contextUser
   const [allData, setAllData] = useState([])
-  console.log(store);
-
-
 
 
   const deleteTask = async (id) => {
@@ -33,9 +30,10 @@ const Tasks = (props) => {
       console.log(result);
       if (result.isConfirmed === true) {
         try {
-          const filteredTasks = store?.filter(i => i.id !== id)
+          axios.delete(`/todos/${id}`)
+          const filteredTasks = store.filter(i => i.id !== id)
+          console.log(filteredTasks);
           dispatch(deleteItem(filteredTasks));
-         axios.delete(`/todos/${id}`)
       } catch (error) {
           console.log(error).then(() => {
             Swal.fire(
@@ -49,11 +47,6 @@ const Tasks = (props) => {
     })
    }
 
-
-
-  
-console.log(props);
-
   if (!loader) {
     return (
       <StyledTasksList>
@@ -61,11 +54,11 @@ console.log(props);
           const { id, attributes } = item;
           return (
             <TaskItem
-              compeleted={attributes.is_completed}
+              compeleted={attributes?.is_completed}
               id={id}
               key={id}
-              title={attributes.title}
-              important={attributes.is_important}
+              title={attributes?.title}
+              important={attributes?.is_important}
               handleClick={() => deleteTask(item.id)}
               data={{...attributes, id}}
             />
