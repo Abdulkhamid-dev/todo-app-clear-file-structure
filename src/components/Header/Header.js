@@ -7,23 +7,21 @@ import { VscSettingsGear } from "react-icons/vsc";
 import { RiQuestionMark } from "react-icons/ri";
 import { AiOutlineNotification } from "react-icons/ai";
 import { ImExit } from "react-icons/im";
-import { MdOutlineAccountCircle } from "react-icons/md";
 import { VscSearch } from "react-icons/vsc";
 import axios from "../../utils/axios";
-import {useDispatch, useSelector} from 'react-redux';
-import {searchTask} from '../../store/data/dataActions'
+import { useDispatch, useSelector } from "react-redux";
+import { searchTask } from "../../store/data/dataActions";
 
 function Header() {
-  const dispatch = useDispatch()
-  const store = useSelector(state => state)
-  const {auth, datas} = store
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
+  const { auth, datas } = store;
   const [search, setSearch] = useState("");
   const inputRef = useRef();
   const toggleEditing = () => {
     inputRef.current.focus();
   };
 
- 
   const handleForm = async (e) => {
     e.preventDefault();
     try {
@@ -31,7 +29,9 @@ function Header() {
         `/todos?filters[title][$contains]=${search}`
       );
       let searchResult = data.data;
-      let datas = searchResult.filter(item => item.attributes.ownerID === auth?.user?.id)
+      let datas = searchResult.filter(
+        (item) => item.attributes.ownerID === auth?.user?.id
+      );
       dispatch(searchTask(datas));
       console.log(searchResult);
     } catch (error) {
@@ -41,8 +41,8 @@ function Header() {
   const [hide, setHide] = useState(true);
 
   const contextUser = useContext(MainContext);
-  const { user, signOut } = contextUser;
-  const firstCharacter = auth?.user?.username[0]?.toUpperCase();
+  const { signOut } = contextUser;
+  const firstCharacter = auth?.user?.username[0].toUpperCase();
   const toggleHide = () => {
     setHide(!hide);
   };
@@ -55,20 +55,19 @@ function Header() {
     dispatch({
       type: "SIGN_OUT",
       payload: {
-      ...store,
-      initialAuthState: {
-        token: "",
-        user: {
-          id: null,
-          name: "",
-          email: "",
+        ...store,
+        initialAuthState: {
+          token: "",
+          user: {
+            id: null,
+            name: "",
+            email: "",
+          },
         },
-       }
       },
     });
     signOut();
   };
-
 
   return (
     <StyledHeader>
