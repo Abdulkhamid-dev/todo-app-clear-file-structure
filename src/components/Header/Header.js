@@ -42,7 +42,7 @@ function Header() {
 
   const contextUser = useContext(MainContext);
   const { signOut } = contextUser;
-  const firstCharacter = auth?.user?.username[0].toUpperCase();
+  const firstCharacter = auth?.user?.username[0]?.toUpperCase();
   const toggleHide = () => {
     setHide(!hide);
   };
