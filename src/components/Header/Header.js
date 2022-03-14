@@ -5,7 +5,7 @@ import { StyledHeader } from "./Header.style";
 import { CgMenuGridO } from "react-icons/cg";
 import { VscSettingsGear } from "react-icons/vsc";
 import { RiQuestionMark } from "react-icons/ri";
-import { AiOutlineNotification } from "react-icons/ai";
+import { AiOutlineNotification, AiOutlineUser } from "react-icons/ai";
 import { ImExit } from "react-icons/im";
 import { VscSearch } from "react-icons/vsc";
 import axios from "../../utils/axios";
@@ -42,7 +42,7 @@ function Header() {
 
   const contextUser = useContext(MainContext);
   const { signOut } = contextUser;
-  const firstCharacter = auth?.user?.username[0]?.toUpperCase();
+  const firstCharacter =  <AiOutlineUser color="#fff" size={20} />
   const toggleHide = () => {
     setHide(!hide);
   };

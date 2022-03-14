@@ -64,6 +64,9 @@ export const StyledHeader = styled.header`
   }
   }
   .dropbtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
     color: white;
     font-size: ${pxToRem(18)};
