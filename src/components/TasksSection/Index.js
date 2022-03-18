@@ -7,12 +7,10 @@ import { BsThreeDots } from "react-icons/bs";
 import { BiSort } from "react-icons/bi";
 import { VscMenu } from "react-icons/vsc";
 import { RiLightbulbLine } from "react-icons/ri";
-import { AiOutlinePlus } from "react-icons/ai";
 import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils";
 
 function TasksSection(props) {
-
 
 
   return (
@@ -23,7 +21,7 @@ function TasksSection(props) {
             <div className="headline">
               <div>
                 <div>
-                  <button className="sidebarNavBtn">
+                  <button className="sidebarNavBtn" onClick={props.handler}>
                     <i>
                       <VscMenu
                         color={`${COLORS.darkGrey}`}

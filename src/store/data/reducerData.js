@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import axios from "../../utils/axios";
 import {
   GET_DATAS,
   GET_SEARCH,

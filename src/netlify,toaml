@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://microsoft-todo.netlify.app"
+  to = "https://microsoft-todo.netlify.app"
+  status = 301
+  force = true

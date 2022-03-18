@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
-import { PersistGate } from 'redux-persist/integration/react'
 import App from "./views/App";
 import reportWebVitals from "./reportWebVitals";
 import "./styles/normalize.css";

@@ -1,12 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
-import { BiStar } from "react-icons/bi";
+import React, { useState, useEffect } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { StyledTask } from "./Index.styles";
 import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils/index";
 import axios from "../../utils/axios";
-import MainContext from "../../context/Context";
 
 const TaskItem = (props) => {
   const {
@@ -31,7 +29,7 @@ const TaskItem = (props) => {
 
   const handleCompleted = async () => {
     try {
-      const { data } = await axios.put(`/todos/${id}`, {
+       await axios.put(`/todos/${id}`, {
         data: { is_completed: !is_completed },
       });
     } catch (error) {
@@ -41,7 +39,7 @@ const TaskItem = (props) => {
 
   const handleImportant = async () => {
     try {
-      const { data } = await axios.put(`/todos/${id}`, {
+     await axios.put(`/todos/${id}`, {
         data: { is_important: !is_important },
       });
     } catch (error) {
@@ -49,11 +47,7 @@ const TaskItem = (props) => {
     }
   };
 
-  const [check, setCheck] = useState(false);
 
-  const handleChange = (e) => {
-    setCheck(!check);
-  };
 
   return (
     <StyledTask>

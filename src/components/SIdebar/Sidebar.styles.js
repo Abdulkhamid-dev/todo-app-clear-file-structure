@@ -3,12 +3,12 @@ import { COLORS, STYLING_CONFIGS } from "../../constants";
 import { pxToRem } from "../../utils";
 
 export const StyledSidebar = styled.aside`
-@media only screen and (max-width: 920px) {
-  position: absolute;
-  flex-column: column;
-  height: 100%;
-  left: -290px;
- }
+  @media only screen and (max-width: 920px) {
+    position: absolute;
+    z-index: 100;
+    -webkit-box-shadow: 2px 0px 50px 1px rgba(0,0,0,0.45); 
+    box-shadow: 2px 0px 50px 1px rgba(0,0,0,0.45);
+  }
   border-right: 1px solid #eaeaea;
   width: 290px;
   background-color: ${COLORS.lightGrey};
@@ -17,7 +17,7 @@ export const StyledSidebar = styled.aside`
   flex-direction: column;
   background: #f4f4f4;
   height: 100%;
-  transition: 0.4s ease-in-out;
+  transition: 1s ease-in-out;
 
   .sidebar {
     display: flex;
@@ -35,6 +35,9 @@ export const StyledSidebar = styled.aside`
     padding: 0 8px;
   }
   .sidebarNavBtn {
+    display: flex;
+    align-items: center;
+    justify-content: start;
     button {
       background-color: ${COLORS.lightGrey};
       display: flex;
@@ -65,26 +68,26 @@ export const StyledSidebar = styled.aside`
       ul {
         padding-top: 8px;
         padding: 0;
-        .menu-list-item{
+        .menu-list-item {
           transition: 0.5s ease-in-out;
         }
-        .menu-list-item:hover{
-          li{
-            background-color: ${COLORS.activeGrey} !important; 
+        .menu-list-item:hover {
+          li {
+            background-color: ${COLORS.activeGrey} !important;
             .itemTitle {
               color: ${COLORS.main};
-            }  
+            }
             .taskCount {
               color: ${COLORS.main};
             }
           }
         }
-        a.active{
-          li{
-            background-color: ${COLORS.activeGrey} !important; 
+        a.active {
+          li {
+            background-color: ${COLORS.activeGrey} !important;
             .itemTitle {
               color: ${COLORS.main};
-            }  
+            }
             .taskCount {
               color: ${COLORS.main};
             }
@@ -224,5 +227,3 @@ export const StyledSidebar = styled.aside`
     }
   }
 `;
-
-

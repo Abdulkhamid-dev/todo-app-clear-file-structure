@@ -1,6 +1,4 @@
-import React, { useState, lazy, Suspense, useCallback } from "react";
-import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, lazy, Suspense } from "react";
 import MainContext from "../context/Context";
 import axios from "../utils/axios";
 const Header = lazy(() => import("../components/Header/Header"));
@@ -8,8 +6,6 @@ const Main = lazy(() => import("../components/Main/Main"));
 const Auth = lazy(() => import("../views/Auth/index"));
 
 const App = () => {
-  const store = useSelector((state) => state);
-  const { auth } = store;
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState(() => JSON.parse(localStorage.user || "{}"));
   const [tasks, setTasks] = useState([]);

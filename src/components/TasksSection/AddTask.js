@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React from "react";
 import { StyledAddTaskForm } from "./Index.styles";
 import { AiOutlinePlus } from "react-icons/ai";
 import axios from "../../utils/axios";
@@ -13,7 +13,7 @@ import { getAllData } from "../../store/data/dataActions";
 function AddTask() {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
-  const { auth, datas } = store;
+  const { auth } = store;
   const { id } = auth?.user;
   const [todo, setTodo] = useState({
     title: "",

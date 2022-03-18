@@ -5,7 +5,7 @@ import { VscMenu } from "react-icons/vsc";
 import { BsSun } from "react-icons/bs";
 import { BiStar } from "react-icons/bi";
 import { VscCalendar, VscHome, VscMail } from "react-icons/vsc";
-import { AiOutlineUser, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 import { CgFolderAdd } from "react-icons/cg";
 import { RiGroupLine } from "react-icons/ri";
 import { IoMdAttach } from "react-icons/io";
@@ -13,24 +13,19 @@ import { ImCheckmark2 } from "react-icons/im";
 import { COLORS } from "../../constants";
 import { pxToRem } from "../../utils";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 
-function Sidebar() {
+function Sidebar(props) {
   const inputRef = useRef();
-  const dispatch = useDispatch();
   const store = useSelector((state) => state.datas);
   const toggleEditing = () => {
     inputRef.current.focus();
   };
-
-    
-  const { tasks, importants, completed } = store;
   return (
-    <StyledSidebar>
+    <StyledSidebar style={props.show ? { left: "-340px" } : { left: "0px" }}>
       <div className="sidebar">
         <div className="sidebarHeader">
           <div className="sidebarNavBtn">
-            <button>
+            <button onClick={props.handler}>
               <i>
                 <VscMenu color={`${COLORS.darkGrey}`} size={`${pxToRem(20)}`} />
               </i>
@@ -50,9 +45,9 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">My Day</span>
-                    <span className="taskCount">{
-                      store?.length ? store?.length : null
-                    }</span>
+                    <span className="taskCount">
+                      {store?.length ? store?.length : null}
+                    </span>
                   </div>
                 </li>
               </NavLink>
@@ -110,9 +105,9 @@ function Sidebar() {
                       />
                     </span>
                     <span className="itemTitle">Tasks</span>
-                    <span className="taskCount">{
-                      store?.length ? store?.length : null
-                    }</span>
+                    <span className="taskCount">
+                      {store?.length ? store?.length : null}
+                    </span>
                   </div>
                 </li>
               </NavLink>

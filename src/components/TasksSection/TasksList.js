@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Swal from "sweetalert2";
 import { StyledTasksList } from "./Index.styles";
 import axios from "../../utils/axios";
 // import Data from "../../Mocks/todos";
 import TaskItem from "./TaskItem";
-import MainContext from "../../context/Context";
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteItem} from '../../store/data/dataActions'
 
@@ -12,9 +11,6 @@ const Tasks = (props) => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.datas)
   const [loader, setLoader] = useState(false)
-  const contextUser = useContext(MainContext)
-  const {user} = contextUser
-  const [allData, setAllData] = useState([])
 
 
   const deleteTask = async (id) => {
